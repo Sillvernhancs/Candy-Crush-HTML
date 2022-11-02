@@ -127,7 +127,8 @@ $(board).on('remove', function(e, info)
 // move a candy on the board
 $(board).on('scoreUpdate', function(e, info)
 {
-  // Your code here. To be implemented in pset 2.
+  document.getElementById("scoreboard").textContent = "Score: " + info.score;
+  console.log(info.score);
 });
 
 // Button Events
@@ -144,6 +145,7 @@ $(document).on('click', ".onButtons", function(evt)
       document.getElementById("text_input").focus();
     }
     toggleButton(0);
+    document.getElementById("scoreboard").textContent = "Score: 0";
     switchForNewGame = true;
   } else if(button == "up"){
     arrows("up");
@@ -287,6 +289,7 @@ function createBoardGame() {
       col.addEventListener("click", function () {
         if(!document.getElementById("text_input").disabled) {
           document.getElementById("text_input").value = this.id;
+          toggleButton(0);
           text_input_process();
         }
       })
@@ -353,7 +356,8 @@ function text_input_process() {
       </div> 
      </div>
     <!-- -----------------------------second collum -->
-    <div class="col-md-4" id="mainColumn" style = "margin-top: 10%">
+    <div class="col-md-4" id="mainColumn" style = "margin-top: 10%; padding-left: 40px;">
+      <h3 id = "scoreboard" style = "right: 50px;">Score: 0</h3>
       <table id="gameboard" BORDER = 2></table>
     </div>
     <!-- -----------------------------last collum -->

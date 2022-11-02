@@ -285,8 +285,10 @@ function createBoardGame() {
       col.setAttribute('id', id);
       col.append(id);
       col.addEventListener("click", function () {
-        document.getElementById("text_input").value = this.id;
-        text_input_process();
+        if(!document.getElementById("text_input").disabled) {
+          document.getElementById("text_input").value = this.id;
+          text_input_process();
+        }
       })
       row.append(col);
     }
@@ -370,8 +372,8 @@ function text_input_process() {
               <input id="down" type="button" class = "offButtons" value = "&#x2193">
             </div>
             <input id="right" type="button" class = "offButtons" value = "&#x2192">
-            <div style = "padding-left: 20px;">
-              <input id="crush" type="button" class = "offButtons" value="Crush Once">
+            <div style = "padding-left: 20px; text-align: center;">
+              <input id="crush" type="button" class = "offButtons" value="Crush">
             </div>
           </div>
         <div>

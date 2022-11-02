@@ -77,7 +77,8 @@ if ($.getUrlVar('size') && $.getUrlVar('size') >= 3) {
 } else {
   board = new Board(DEFAULT_BOARD_SIZE);
 }
-
+// check for moblie use
+var is_mobile = !!navigator.userAgent.match(/iphone|android|blackberry/ig) || false;
 // load a rule
 rules = new Rules(board);
 
@@ -91,6 +92,7 @@ $(document).ready(function()
   createBoardGame();
   rules.prepareNewGame();
   toggleButton(0);
+  console.log(is_mobile);
   switchForNewGame = true;
 });
 /* Event Handlers */
@@ -138,7 +140,36 @@ $(document).on('click', ".onButtons", function(evt)
     board.clear();
     rules.prepareNewGame();
     document.getElementById("text_input").value = "";
-    document.getElementById("text_input").focus();
+    if (!is_mobile) {
+      document.getElementById("text_input").focus();
+    }
+    toggleButton(0);
+    switchForNewGame = true;
+  } else if(button == "up"){
+    arrows("up");
+  } else if(button == "down"){
+    arrows("down");
+  } else if(button == "left"){
+    arrows("left");
+  } else if(button == "right"){
+    arrows("right");
+  } else if(button == "crush") {
+    crush();
+  }
+});
+
+$(document).on('onTouch', ".onButtons", function(evt)
+{
+  var button = evt.target.id;
+  // check if the button clicked was start button
+  if(button == "start_button"){
+    switchForNewGame = false;
+    board.clear();
+    rules.prepareNewGame();
+    document.getElementById("text_input").value = "";
+    if (!is_mobile) {
+      document.getElementById("text_input").focus();
+    }
     toggleButton(0);
     switchForNewGame = true;
   } else if(button == "up"){
@@ -157,7 +188,9 @@ $(document).on('click', ".onButtons", function(evt)
 // Clear text input and focus text input
 function clearText() {
   document.getElementById("text_input").value = "";
-  document.getElementById("text_input").focus();
+  if (!is_mobile) {
+      document.getElementById("text_input").focus();
+  }
   toggleButton(0);
 }
 //------------------------------------------------------------------
@@ -202,7 +235,9 @@ function crush() {
         document.getElementById("text_input").disabled = true;
       } else {
         document.getElementById("text_input").disabled = false;
-        document.getElementById("text_input").focus();
+        if (!is_mobile) {
+          document.getElementById("text_input").focus();
+        }
       }
     }, 500);
     clearText();
@@ -249,6 +284,10 @@ function createBoardGame() {
       var id = String.fromCharCode('a'.charCodeAt() + c) + (r+1);
       col.setAttribute('id', id);
       col.append(id);
+      col.addEventListener("click", function () {
+        document.getElementById("text_input").value = this.id;
+        text_input_process();
+      })
       row.append(col);
     }
     gameTable.append(row);

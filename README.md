@@ -1,5 +1,5 @@
-# Candy-Crush-HTML
-a simple recreation of Candy Crushing Using HTML/CSS/JAVASCRIPT [mobile friendly]
+# Candy-Crush-HTML[mobile friendly]
+a simple recreation of Candy Crushing Using HTML/CSS/JAVASCRIPT 
 
 You play by entering a candy id from the table or clicking on them, and the arrows will light up if you can move there. After moving the candies, you can hit the [crush once] button to crush the candies. Hit it repeatedly until there are no more candies to crush left then you move another candy again. 
 ### Demo Pictures: 
